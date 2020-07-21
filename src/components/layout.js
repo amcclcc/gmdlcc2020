@@ -1,21 +1,54 @@
-import React from "react"
-import { Box, Grid } from "@chakra-ui/core"
-import Header from "./header"
-import Menu from "./menu"
+/**
+ * Layout component that queries for data
+ * with Gatsby's useStaticQuery component
+ *
+ * See: https://www.gatsbyjs.org/docs/use-static-query/
+ */
 
-import "../assets/style.css"
+import React, { useLayoutEffect, useRef, useState, useContext } from "react" // eslint-disable-line no-unused-vars
+import { useStaticQuery, graphql } from "gatsby"
+/** @jsx jsx */
+import { jsx, Box, Container } from "theme-ui"
+import Transition from "./navigation/transition"
+// import { Global } from "@emotion/core"
 
-const Layout = ({ children }) => (
-  <div>
-    <Grid style={{ margin: `0 auto` }} maxW="90%" w={900} alignSelf="center">
-      <Box mb={10} mt={20}>
+import Header from "./navigation/header"
+// import Footer from "./navigation/footer"
+// import PageFooter from "./navigation/PageFooter"
+import smoothscroll from "smoothscroll-polyfill"
+// import { ServiceWorkerRefresh } from "./pagelayout/ServiceWorkerRefresh"
+
+const Layout = (props) => {
+  const data = useStaticQuery(graphql`
+    query SiteTitleQuery {
+      site {
+        siteMetadata {
+          title
+        }
+      }
+    }
+  `)
+  // const { theme } = useThemeUI()
+
+  return (
+    <>
+      <Container
+      // sx={{
+      //   maxWidth: 1400,
+      //   mx: "auto",
+      // }}
+      >
         <Header />
-      </Box>
-      <Menu />
-
-      <Box mb={100}>{children}</Box>
-    </Grid>
-  </div>
-)
+        <main sx={{ p: 2 }}>{props.children}</main>
+        {/* <PageFooter
+          sx={{
+            mb: theme.layout.footer.height,
+          }}
+        /> */}
+        {/* <ServiceWorkerRefresh /> */}
+      </Container>
+    </>
+  )
+}
 
 export default Layout

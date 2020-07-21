@@ -55,12 +55,14 @@ typings/
 
 # dotenv environment variables file
 .env
+.env.development
+.env.production
 
 .cache/
 public
 yarn-error.log
 .DS_Store
-.env.*
+.env*
 !.env.GATSBY_CONCURRENT_DOWNLOAD
 .DS_Store
 
